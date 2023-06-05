@@ -1,11 +1,16 @@
 import bcrypt from "bcrypt";
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 import { invalidCredentialsError } from "@/errors/invalidCredentialError";
 import signUpRepository from "@/repositories/signUpRepository.ts";
+import { UserCredentials } from "@/protocols";
+import { User } from "@prisma/client";
 
-export async function signIn(email: string, password: string) {
+export async function signIn(
+  email: string,
+  password: string
+): Promise<UserCredentials> {
   const user = await verifyCredential(email);
-  await verifyPassword(password, user.password)
+  await verifyPassword(password, user.password);
 
   const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
 
@@ -18,7 +23,7 @@ export async function signIn(email: string, password: string) {
   };
 }
 
-export async function verifyCredential(email: string) {
+export async function verifyCredential(email: string): Promise<User> {
   const user = await signUpRepository.findByEmail(email);
   if (!user) throw invalidCredentialsError();
 

@@ -15,3 +15,18 @@ export async function getTheme(
     next(error);
   }
 }
+
+export async function createTheme(
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction
+) {
+  const user_id = req.userId;
+  const { title } = req.body;
+  try {
+    const createdTheme = await themeService.createTheme({ user_id, title });
+    return res.status(httpStatus.CREATED).send(createdTheme);
+  } catch (error) {
+    next(error);
+  }
+}

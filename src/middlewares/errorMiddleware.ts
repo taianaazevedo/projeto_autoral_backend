@@ -14,6 +14,12 @@ export function handleApplicationErrors(
     });
   }
 
+  if (err.name === 'DuplicatedThemeError') {
+    return res.status(httpStatus.CONFLICT).send({
+      message: err.message,
+    });
+  }
+
   if (err.name === 'InvalidCredentialsError') {
     return res.status(httpStatus.UNAUTHORIZED).send({
       message: err.message,

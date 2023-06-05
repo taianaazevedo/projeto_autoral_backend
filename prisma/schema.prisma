@@ -27,12 +27,8 @@ model User {
 
 model Theme {
   id        Int        @id @default(autoincrement())
-  title     String     @db.VarChar(255)
+  title     String     @db.VarChar(255) @unique
   user_id   Int
-  song_id   Int
-  movie_id  Int
-  serie_id  Int
-  book_id   Int
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   User      User       @relation(fields: [user_id], references: [id], onDelete: Cascade)
