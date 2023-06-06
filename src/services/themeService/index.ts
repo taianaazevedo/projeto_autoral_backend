@@ -1,5 +1,5 @@
 import { duplicatedThemeError } from "@/errors";
-import themeRepository, { ThemeCreated } from "@/repositories/themeRepository.ts";
+import themeRepository, { ThemeCreated } from "@/repositories/themeRepository";
 import { Theme } from "@prisma/client";
 
 export async function getTheme(): Promise<Theme[]> {

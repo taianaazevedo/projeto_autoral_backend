@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { duplicatedEmailError } from "@/errors/duplicatedEmailError";
-import signUpRepository from "@/repositories/signUpRepository.ts";
+import signUpRepository from "@/repositories/signUpRepository";
 import { User } from "@prisma/client";
 
 export async function signUp(
