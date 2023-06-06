@@ -23,11 +23,12 @@ model User {
   Serie     Serie[]
   Movie     Movie[]
   Favorite  Favorite[]
+  Book      Book[]
 }
 
 model Theme {
   id        Int        @id @default(autoincrement())
-  title     String     @db.VarChar(255) @unique
+  title     String     @unique @db.VarChar(255)
   user_id   Int
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
@@ -36,6 +37,7 @@ model Theme {
   Serie     Serie[]
   Movie     Movie[]
   Favorite  Favorite[]
+  Book      Book[]
 }
 
 model Song {
@@ -43,6 +45,7 @@ model Song {
   theme_id  Int
   user_id   Int
   title     String   @db.VarChar(255)
+  performer String   @db.VarChar(255)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Theme     Theme    @relation(fields: [theme_id], references: [id], onDelete: Cascade)
@@ -54,6 +57,7 @@ model Serie {
   theme_id  Int
   user_id   Int
   title     String   @db.VarChar(255)
+  streaming String   @db.VarChar(255)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Theme     Theme    @relation(fields: [theme_id], references: [id], onDelete: Cascade)
@@ -65,6 +69,19 @@ model Movie {
   theme_id  Int
   user_id   Int
   title     String   @db.VarChar(255)
+  streaming String   @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Theme     Theme    @relation(fields: [theme_id], references: [id], onDelete: Cascade)
+  User      User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model Book {
+  id        Int      @id @default(autoincrement())
+  theme_id  Int
+  user_id   Int
+  title     String   @db.VarChar(255)
+  author    String   @db.VarChar(255)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Theme     Theme    @relation(fields: [theme_id], references: [id], onDelete: Cascade)
@@ -75,7 +92,6 @@ model Favorite {
   id        Int      @id @default(autoincrement())
   theme_id  Int
   user_id   Int
-  title     String   @db.VarChar(255)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Theme     Theme    @relation(fields: [theme_id], references: [id], onDelete: Cascade)
