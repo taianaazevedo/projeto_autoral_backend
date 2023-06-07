@@ -14,6 +14,14 @@ export async function createTheme({user_id, title}: ThemeCreated): Promise<Theme
   });
 }
 
+export async function getThemeById(theme_id: number): Promise<Theme>{
+  return prisma.theme.findUnique({
+    where: {
+      id: theme_id
+    }
+  })
+}
+
 export async function findThemeByTitle(title: string) {
   return prisma.theme.findUnique({
     where: {
@@ -26,6 +34,7 @@ export type ThemeCreated = Omit<Theme, 'id' | 'createdAt' | 'updatedAt'>
 
 const themeRepository = {
   getTheme,
+  getThemeById,
   findThemeByTitle,
   createTheme,
 };
