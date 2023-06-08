@@ -24,4 +24,17 @@ export async function postFavorite(req: AuthenticatedRequest, res: Response, nex
     } catch (error) {
       next(error);
     }
+}
+
+export async function deleteFavorite(req: AuthenticatedRequest, res: Response, next: NextFunction){
+  const id = Number(req.params.id) 
+  if(!id) return res.sendStatus(httpStatus.BAD_REQUEST)
+  
+  try {
+    await favoriteService.deleteFavorite(id)
+    return res.sendStatus(httpStatus.OK)
+  } catch (error) {
+    next(error)
+    
   }
+}

@@ -24,9 +24,27 @@ export async function postFavorite({user_id, theme_id}: PostFavoriteParams): Pro
   })
 }
 
+export async function deleteFavorite(id: number){
+  return prisma.favorite.delete({
+    where: {
+      id,
+    }
+  })
+}
+
+export async function getFavoriteById(id: number){
+  return prisma.favorite.findFirst({
+    where: {
+      id,
+    }
+  })
+}
+
 const favoriteRepository = {
   getFavorite,
-  postFavorite
+  postFavorite,
+  deleteFavorite,
+  getFavoriteById
 };
 
 export { favoriteRepository };
