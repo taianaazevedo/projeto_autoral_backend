@@ -22,3 +22,7 @@ export type UserCredentials = {
   imgUrl: string;
   token: string;
 };
+
+export type Search = {
+  search: string;
+}

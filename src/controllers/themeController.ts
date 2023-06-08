@@ -1,4 +1,5 @@
 import { AuthenticatedRequest } from "@/middlewares/authenticationMiddleware";
+import { Search } from "@/protocols";
 import themeService from "@/services/themeService";
 import { NextFunction, Response } from "express";
 import httpStatus from "http-status";
@@ -16,12 +17,21 @@ export async function getThemeById(req: AuthenticatedRequest, res: Response, nex
   const theme_id = Number(req.params.id)  
   if(isNaN(theme_id) || theme_id <= 0) return res.sendStatus(httpStatus.BAD_REQUEST)
   
-
   try {
     const themeById = await themeService.getThemeById(theme_id)
     return res.status(httpStatus.OK).send(themeById)
   } catch (error) {
     next(error)    
+  }
+}
+
+export async function getThemeByName(req: AuthenticatedRequest, res: Response, next: NextFunction){
+  const { search } = req.query as Search
+  try {
+    const theme = await themeService.getThemeByName(search)
+    return res.status(httpStatus.OK).send(theme)
+  } catch (error) {
+    next(error)
   }
 }
 
