@@ -1,4 +1,4 @@
-import { duplicatedThemeError, notFoundError } from "@/errors";
+import { duplicatedThemeError } from "@/errors";
 import themeRepository, { ThemeCreated } from "@/repositories/themeRepository";
 import { Theme } from "@prisma/client";
 
@@ -14,7 +14,6 @@ export async function getThemeById(theme_id: number): Promise<Theme> {
 
 export async function getThemeByName(search: string): Promise<Theme[]> {
   const theme = await themeRepository.getThemeByName(search);
-  if (!theme || theme.length === 0) throw notFoundError();
   return theme;
 }
 

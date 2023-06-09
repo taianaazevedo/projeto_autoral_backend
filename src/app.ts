@@ -1,8 +1,9 @@
 import express, { Express } from "express";
 import cors from "cors";
 import { loadEnv, connectDb, disconnectDB } from "@/config";
-import { signInRouter, signUpRouter, themeRouter, favoriteRouter } from "@/routers";
+import { signInRouter, signUpRouter, themeRouter, favoriteRouter, songRouter } from "@/routers";
 import { handleApplicationErrors } from "./middlewares/errorMiddleware";
+
 
 loadEnv();
 
@@ -14,6 +15,7 @@ app
 .use("/sign-in", signInRouter)
 .use("/theme", themeRouter)
 .use("/favorite", favoriteRouter)
+.use("/song", songRouter)
 .use(handleApplicationErrors)
 
 export function init(): Promise<Express> {
