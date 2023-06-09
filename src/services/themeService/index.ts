@@ -17,7 +17,10 @@ export async function getThemeByName(search: string): Promise<Theme[]> {
   return theme;
 }
 
-export async function createTheme({user_id, title}: ThemeCreated): Promise<ThemeCreated> {
+export async function createTheme({
+  user_id,
+  title,
+}: ThemeCreated): Promise<ThemeCreated> {
   await findThemeByTitle(title);
 
   const theme = await themeRepository.createTheme({ user_id, title });
@@ -37,4 +40,4 @@ const themeService = {
   createTheme,
 };
 
-export default themeService;
+export { themeService };

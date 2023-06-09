@@ -1,5 +1,5 @@
 import { UserAccount } from "@/protocols";
-import signUpService from "@/services/signUpService";
+import { signUpService } from "@/services";
 import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
 

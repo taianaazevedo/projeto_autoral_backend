@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { invalidCredentialsError } from "@/errors/invalidCredentialError";
-import signUpRepository from "@/repositories/signUpRepository";
+import { signUpRepository } from "@/repositories/signUpRepository";
 import { UserCredentials } from "@/protocols";
 import { User } from "@prisma/client";
 
@@ -39,4 +39,4 @@ const signInService = {
   signIn,
 };
 
-export default signInService;
+export { signInService };

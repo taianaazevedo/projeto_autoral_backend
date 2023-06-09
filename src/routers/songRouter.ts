@@ -1,4 +1,4 @@
-import { getSongs, postSong } from "@/controllers/songController";
+import { getThemesWithSongs, postSong } from "@/controllers";
 import { validate } from "@/middlewares";
 import { authenticateToken } from "@/middlewares/authenticationMiddleware";
 import { songSchema } from "@/schemas";
@@ -8,7 +8,7 @@ const songRouter = Router();
 
 songRouter
   .all("/*", authenticateToken)
-  .get("/", getSongs)
-  .post("/:id", validate(songSchema), postSong);
+  .get("/", getThemesWithSongs)
+  .post("/", validate(songSchema), postSong);
 
 export { songRouter };

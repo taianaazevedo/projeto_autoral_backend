@@ -1,5 +1,5 @@
 import { UserSignIn } from "@/protocols";
-import signInService from "@/services/signInService";
+import { signInService } from "@/services";
 import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
 

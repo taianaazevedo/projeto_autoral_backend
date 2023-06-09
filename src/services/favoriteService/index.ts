@@ -7,8 +7,8 @@ export async function getFavorite(user_id: number): Promise<(Favorite & {Theme: 
   return favorite
 }
 
-export async function postFavorite({user_id, theme_id}: PostFavoriteParams): Promise<Favorite>{
-  const postFavorite = await favoriteRepository.postFavorite({user_id, theme_id})
+export async function postFavorite(user_id: number, theme_id: number): Promise<Favorite>{
+  const postFavorite = await favoriteRepository.postFavorite(user_id, theme_id)
   return postFavorite
 }
 
@@ -24,10 +24,6 @@ export async function getFavoriteById(id: number): Promise<Favorite>{
   return favId
 }
 
-export type PostFavoriteParams = {
-  user_id: number,
-  theme_id: number
-}
 
 const favoriteService = {
   getFavorite,

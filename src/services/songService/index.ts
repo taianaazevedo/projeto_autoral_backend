@@ -1,5 +1,5 @@
 import { PostSong } from "@/protocols";
-import songRepository from "@/repositories/songRepository";
+import { songRepository } from "@/repositories/songRepository";
 import { Song, Theme } from "@prisma/client";
 
 export async function getSongs():Promise<(Song & {Theme: Theme})[]>{

@@ -23,4 +23,4 @@ const signUpRepository = {
   createUser
 };
 
-export default signUpRepository;
+export { signUpRepository };

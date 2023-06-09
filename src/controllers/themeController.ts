@@ -1,6 +1,6 @@
 import { AuthenticatedRequest } from "@/middlewares/authenticationMiddleware";
 import { Search } from "@/protocols";
-import themeService from "@/services/themeService";
+import { themeService } from "@/services";
 import { NextFunction, Response } from "express";
 import httpStatus from "http-status";
 

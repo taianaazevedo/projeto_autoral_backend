@@ -28,28 +28,30 @@ export type Search = {
 };
 
 export type PostSong = {
-  user_id: number;
+  user_id?: number;
   theme_id: number;
   title: string;
   performer: string;
 };
 
-export type SongParams = {
-  title: string;
-  performer: string;
-}
 
-export type SerieParams = {
+export type PostSerie = {
+  user_id?: number;
   title: string;
   streaming: string;
+  theme_id: number;
 }
 
-export type MovieParams = {
+export type PostMovie = {
+  user_id?: number;
   title: string;
   streaming: string;
+  theme_id: number;
 }
 
-export type BookParams = {
+export type PostBook = {
+  user_id?: number;
   title: string;
   author: string;
+  theme_id: number;
 }

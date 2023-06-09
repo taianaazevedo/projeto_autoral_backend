@@ -15,13 +15,14 @@ export async function getFavorite(req: AuthenticatedRequest, res: Response, next
 
 export async function postFavorite(req: AuthenticatedRequest, res: Response, next: NextFunction) {
     const user_id = req.userId as number;
-    const theme_id = Number(req.params.id) 
+    const { theme_id } = req.body;
     if(!theme_id) return res.sendStatus(httpStatus.BAD_REQUEST)
     
     try {
-      const postFavorite = await favoriteService.postFavorite({user_id, theme_id});
+      const postFavorite = await favoriteService.postFavorite(user_id, theme_id);
       return res.status(httpStatus.CREATED).send(postFavorite);
     } catch (error) {
+      console.log(error)
       next(error);
     }
 }

@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { duplicatedEmailError } from "@/errors/duplicatedEmailError";
-import signUpRepository from "@/repositories/signUpRepository";
+import { signUpRepository } from "@/repositories/signUpRepository/index";
 import { User } from "@prisma/client";
 
 export async function signUp(
@@ -25,4 +25,4 @@ const signUpService = {
   signUp,
 };
 
-export default signUpService;
+export { signUpService };
