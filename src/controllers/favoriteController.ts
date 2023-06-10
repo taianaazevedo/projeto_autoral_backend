@@ -14,28 +14,26 @@ export async function getFavorite(req: AuthenticatedRequest, res: Response, next
 }
 
 export async function postFavorite(req: AuthenticatedRequest, res: Response, next: NextFunction) {
-    const user_id = req.userId as number;
-    const { theme_id } = req.body;
-    if(!theme_id) return res.sendStatus(httpStatus.BAD_REQUEST)
-    
-    try {
-      const postFavorite = await favoriteService.postFavorite(user_id, theme_id);
-      return res.status(httpStatus.CREATED).send(postFavorite);
-    } catch (error) {
-      console.log(error)
-      next(error);
-    }
+  const user_id = req.userId as number;
+  const { theme_id } = req.body;
+  if (!theme_id || isNaN(theme_id)) return res.sendStatus(httpStatus.BAD_REQUEST);
+
+  try {
+    const postFavorite = await favoriteService.postFavorite(user_id, theme_id);
+    return res.status(httpStatus.CREATED).send(postFavorite);
+  } catch (error) {
+    next(error);
+  }
 }
 
-export async function deleteFavorite(req: AuthenticatedRequest, res: Response, next: NextFunction){
-  const id = Number(req.params.id) 
-  if(isNaN(id) || id <= 0) return res.sendStatus(httpStatus.BAD_REQUEST)
-  
+export async function deleteFavorite(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+  const id = Number(req.params.id);
+  if (isNaN(id) || id <= 0) return res.sendStatus(httpStatus.BAD_REQUEST);
+
   try {
-    await favoriteService.deleteFavorite(id)
-    return res.sendStatus(httpStatus.OK)
+    await favoriteService.deleteFavorite(id);
+    return res.sendStatus(httpStatus.OK);
   } catch (error) {
-    next(error)
-    
+    next(error);
   }
 }

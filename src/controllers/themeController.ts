@@ -14,31 +14,31 @@ export async function getTheme(req: AuthenticatedRequest, res: Response, next: N
 }
 
 export async function getThemeById(req: AuthenticatedRequest, res: Response, next: NextFunction){
-  const theme_id = Number(req.params.id)  
-  if(isNaN(theme_id) || theme_id <= 0) return res.sendStatus(httpStatus.BAD_REQUEST)
+  const theme_id = Number(req.params.id);
+  if(isNaN(theme_id) || theme_id <= 0) return res.sendStatus(httpStatus.BAD_REQUEST);
   
   try {
-    const themeById = await themeService.getThemeById(theme_id)
-    return res.status(httpStatus.OK).send(themeById)
+    const themeById = await themeService.getThemeById(theme_id);
+    return res.status(httpStatus.OK).send(themeById);
   } catch (error) {
-    next(error)    
+    next(error);    
   }
 }
 
 export async function getThemeByName(req: AuthenticatedRequest, res: Response, next: NextFunction){
-  const { search } = req.query as Search
+  const { search } = req.query as Search;
   try {
-    const theme = await themeService.getThemeByName(search)
-    return res.status(httpStatus.OK).send(theme)
+    const theme = await themeService.getThemeByName(search);
+    return res.status(httpStatus.OK).send(theme);
   } catch (error) {
-    next(error)
+    next(error);
   }
 }
 
 export async function createTheme(req: AuthenticatedRequest, res: Response, next: NextFunction) {
   const user_id = req.userId;
   const { title } = req.body;
-  if(!title) return res.sendStatus(httpStatus.BAD_REQUEST)
+  if(!title) return res.sendStatus(httpStatus.BAD_REQUEST);
   
   try {
     const createdTheme = await themeService.createTheme({ user_id, title });

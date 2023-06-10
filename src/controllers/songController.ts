@@ -6,22 +6,22 @@ import httpStatus from "http-status";
 
 export async function getThemesWithSongs(req: AuthenticatedRequest, res: Response, next: NextFunction){
     try {
-        const songs = await songService.getSongs()
-        return res.status(httpStatus.OK).send(songs)
+        const songs = await songService.getSongs();
+        return res.status(httpStatus.OK).send(songs);
     } catch (error) {
-        next(error)
+        next(error);
     }
 }
 
 export async function postSong(req: AuthenticatedRequest, res: Response, next: NextFunction){
-    const user_id = req.userId
-    const { title, performer, theme_id } = req.body as PostSong
-    if(!title || !performer || !theme_id) return res.sendStatus(httpStatus.BAD_REQUEST)
+    const user_id = req.userId;
+    const { title, performer, theme_id } = req.body as PostSong;
+    if(!title || !performer || !theme_id) return res.sendStatus(httpStatus.BAD_REQUEST);
 
     try {
-        const postSong = await songService.postSong({user_id, theme_id, title, performer})
-        return res.status(httpStatus.CREATED).send(postSong)        
+        const postSong = await songService.postSong({user_id, theme_id, title, performer});
+        return res.status(httpStatus.CREATED).send(postSong);       
     } catch (error) {
-        next(error)
+        next(error);
     }
 }

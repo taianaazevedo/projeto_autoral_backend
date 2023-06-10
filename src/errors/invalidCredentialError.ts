@@ -1,8 +1,8 @@
-import { ApplicationError } from '@/protocols';
+import { ApplicationError } from "@/protocols";
 
 export function invalidCredentialsError(): ApplicationError {
   return {
-    name: 'InvalidCredentialsError',
-    message: 'Email or password are incorrect',
+    name: "InvalidCredentialsError",
+    message: "Email or password are incorrect",
   };
 }

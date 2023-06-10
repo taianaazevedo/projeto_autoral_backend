@@ -20,7 +20,7 @@ async function createUser(name: string, email: string, password: string, imgUrl:
 
 const signUpRepository = {
   findByEmail,
-  createUser
+  createUser,
 };
 
 export { signUpRepository };

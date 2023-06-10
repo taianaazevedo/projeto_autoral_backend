@@ -4,4 +4,4 @@ export * from "./invalidCredentialError";
 export * from "./unauthorizedError";
 export * from "./duplicatedThemeError";
 export * from "./badRequestError";
-export * from './notFoundError';
+export * from "./notFoundError";

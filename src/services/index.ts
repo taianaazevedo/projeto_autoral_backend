@@ -4,4 +4,4 @@ export * from "./themeService";
 export * from "./favoriteService";
 export * from "./songService";
 export * from "./serieService";
-
+export * from "./movieService";

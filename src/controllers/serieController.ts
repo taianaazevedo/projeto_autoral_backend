@@ -19,8 +19,8 @@ export async function postSerie(req: AuthenticatedRequest, res: Response, next: 
     if(!title || !streaming || !theme_id) return res.sendStatus(httpStatus.BAD_REQUEST);
     
     try {
-        const postSerie = await serieService.postSerie({user_id, theme_id, title, streaming})
-        return res.status(httpStatus.CREATED).send(postSerie)
+        const postSerie = await serieService.postSerie({user_id, theme_id, title, streaming});
+        return res.status(httpStatus.CREATED).send(postSerie);
     } catch (error) {
         next(error);
     }

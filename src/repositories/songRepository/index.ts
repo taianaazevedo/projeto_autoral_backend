@@ -4,6 +4,9 @@ import { Song, Theme } from "@prisma/client";
 
 export async function getSongs(): Promise<(Song & { Theme: Theme })[]> {
   return prisma.song.findMany({
+    orderBy: {
+      createdAt: "asc",
+    },
     include: {
       Theme: true,
     },

@@ -1,4 +1,9 @@
-import { createTheme, getTheme, getThemeById, getThemeByName } from "@/controllers";
+import {
+  createTheme,
+  getTheme,
+  getThemeById,
+  getThemeByName,
+} from "@/controllers";
 import { validate } from "@/middlewares";
 import { authenticateToken } from "@/middlewares/authenticationMiddleware";
 import { themeSchema } from "@/schemas";
@@ -10,6 +15,6 @@ themeRouter
   .get("/allthemes", getTheme)
   .get("/:id", getThemeById)
   .get("/", getThemeByName)
-  .post("", validate(themeSchema), createTheme)
+  .post("", validate(themeSchema), createTheme);
 
 export { themeRouter };

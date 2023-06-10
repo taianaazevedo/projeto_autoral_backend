@@ -3,11 +3,7 @@ import * as jwt from "jsonwebtoken";
 import { unauthorizedError } from "@/errors";
 import httpStatus from "http-status";
 
-export async function authenticateToken(
-  req: AuthenticatedRequest,
-  res: Response,
-  next: NextFunction
-) {
+export async function authenticateToken(req: AuthenticatedRequest, res: Response, next: NextFunction) {
   try {
     const { authorization } = req.headers;
     if (!authorization) throw unauthorizedError();
@@ -17,7 +13,7 @@ export async function authenticateToken(
 
     const [schema, token] = parts;
     if (schema !== "Bearer") throw unauthorizedError();
-   
+
     const { userId } = jwt.verify(token, process.env.JWT_SECRET) as JWTPayload;
     if (!userId) throw unauthorizedError();
 
@@ -25,7 +21,7 @@ export async function authenticateToken(
 
     next();
   } catch (error) {
-    if(error.name === "unauthorizedError"){
+    if (error.name === "unauthorizedError") {
       return res.status(httpStatus.UNAUTHORIZED).send(unauthorizedError());
     }
     next(error);

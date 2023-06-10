@@ -3,12 +3,7 @@ import { duplicatedEmailError } from "@/errors/duplicatedEmailError";
 import { signUpRepository } from "@/repositories/signUpRepository/index";
 import { User } from "@prisma/client";
 
-export async function signUp(
-  name: string,
-  email: string,
-  password: string,
-  imgUrl: string
-): Promise<User> {
+export async function signUp(name: string, email: string, password: string, imgUrl: string): Promise<User> {
   await validateEmail(email);
 
   const hashedPassword = await bcrypt.hash(password, 12);

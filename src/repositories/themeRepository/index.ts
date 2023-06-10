@@ -2,18 +2,16 @@ import { prisma } from "@/config";
 import { ThemeReferences } from "@/protocols";
 import { Theme } from "@prisma/client";
 
-export async function getTheme(): Promise<(Theme & {
-  User: {
-      name: string;
-      imgUrl: string;
-  };
-})[]> {
+export async function getTheme(): Promise<(Theme & {User: {name: string; imgUrl: string}})[]> {
   return prisma.theme.findMany({
+    orderBy: {
+      createdAt: "asc",
+    },
     include: {
       User: {
         select: {
           name: true,
-          imgUrl: true
+          imgUrl: true,
         },
       },
     },
@@ -37,34 +35,34 @@ export async function getThemeById(theme_id: number): Promise<Theme & ThemeRefer
     include: {
       User: {
         select: {
-          name: true
-        }
+          name: true,
+        },
       },
       Serie: {
         select: {
           title: true,
-          streaming: true
-        }
+          streaming: true,
+        },
       },
       Song: {
         select: {
           title: true,
-          performer: true
-        }
+          performer: true,
+        },
       },
       Movie: {
         select: {
           title: true,
-          streaming: true
-        }
+          streaming: true,
+        },
       },
       Book: {
         select: {
           title: true,
-          author: true
-        }
-      }
-    }
+          author: true,
+        },
+      },
+    },
   });
 }
 

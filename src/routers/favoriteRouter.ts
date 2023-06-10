@@ -4,9 +4,10 @@ import { Router } from "express";
 
 const favoriteRouter = Router();
 
-favoriteRouter.all("/*", authenticateToken)
-.get("/", getFavorite)
-.post("/", postFavorite)
-.delete("/:id", deleteFavorite)
+favoriteRouter
+  .all("/*", authenticateToken)
+  .get("/", getFavorite)
+  .post("/", postFavorite)
+  .delete("/:id", deleteFavorite);
 
 export { favoriteRouter };

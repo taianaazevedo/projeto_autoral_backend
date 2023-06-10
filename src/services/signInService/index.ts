@@ -5,10 +5,7 @@ import { signUpRepository } from "@/repositories/signUpRepository";
 import { UserCredentials } from "@/protocols";
 import { User } from "@prisma/client";
 
-export async function signIn(
-  email: string,
-  password: string
-): Promise<UserCredentials> {
+export async function signIn(email: string, password: string): Promise<UserCredentials> {
   const user = await verifyCredential(email);
   await verifyPassword(password, user.password);
 
