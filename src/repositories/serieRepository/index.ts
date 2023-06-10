@@ -1,14 +1,19 @@
 import { prisma } from "@/config";
-import { PostSerie } from "@/protocols";
-import { Serie, Theme } from "@prisma/client";
+import { PostSerie, ThemeParams } from "@/protocols";
+import { Serie } from "@prisma/client";
 
-export async function getSeries(): Promise<(Serie & { Theme: Theme })[]> {
+export async function getSeries(): Promise<(Serie & ThemeParams)[]> {
   return prisma.serie.findMany({
     orderBy: {
       createdAt: "asc",
     },
     include: {
-      Theme: true,
+      Theme: {
+        select: {
+          id: true,
+          title: true,
+        },
+      },
     },
   });
 }

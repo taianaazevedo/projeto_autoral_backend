@@ -76,3 +76,8 @@ export type ThemeReferences = {
     author: string;
   }[];
 };
+
+export type ThemeParams = {
+  id: number;
+  title: string;
+};

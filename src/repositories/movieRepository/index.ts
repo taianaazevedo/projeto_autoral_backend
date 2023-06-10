@@ -1,14 +1,19 @@
 import { prisma } from "@/config";
-import { PostMovie } from "@/protocols";
-import { Movie, Theme } from "@prisma/client";
+import { PostMovie, ThemeParams } from "@/protocols";
+import { Movie } from "@prisma/client";
 
-export async function getMovies(): Promise<(Movie & { Theme: Theme })[]> {
+export async function getMovies(): Promise<(Movie & ThemeParams)[]> {
   return prisma.movie.findMany({
     orderBy: {
       createdAt: "asc",
     },
     include: {
-      Theme: true,
+      Theme: {
+        select: {
+          id: true,
+          title: true,
+        },
+      },
     },
   });
 }

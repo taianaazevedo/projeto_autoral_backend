@@ -6,8 +6,8 @@ import httpStatus from "http-status";
 
 export async function getThemesWithSeries(req: AuthenticatedRequest, res: Response, next: NextFunction) {
   try {
-    const series = await serieService.getSeries();
-    return res.status(httpStatus.OK).send(series);
+    const themeWithSeries = await serieService.getSeries();
+    return res.status(httpStatus.OK).send(themeWithSeries);
   } catch (error) {
     next(error);
   }

@@ -5,3 +5,4 @@ export * from "./favoriteService";
 export * from "./songService";
 export * from "./serieService";
 export * from "./movieService";
+export * from "./bookService";

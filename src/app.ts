@@ -9,6 +9,7 @@ import {
   songRouter,
   serieRouter,
   movieRouter,
+  bookRouter,
 } from "@/routers";
 import { handleApplicationErrors } from "./middlewares/errorMiddleware";
 
@@ -25,7 +26,7 @@ app
   .use("/song", songRouter)
   .use("/serie", serieRouter)
   .use("/movie", movieRouter)
-  // .use("/book", bookRouter)
+  .use("/book", bookRouter)
   .use(handleApplicationErrors);
 
 export function init(): Promise<Express> {

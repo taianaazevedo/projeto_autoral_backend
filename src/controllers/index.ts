@@ -5,3 +5,4 @@ export * from "./favoriteController";
 export * from "./songController";
 export * from "./serieController";
 export * from "./movieController";
+export * from "./bookController";

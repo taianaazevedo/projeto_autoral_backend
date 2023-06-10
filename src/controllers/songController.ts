@@ -6,8 +6,8 @@ import httpStatus from "http-status";
 
 export async function getThemesWithSongs(req: AuthenticatedRequest, res: Response, next: NextFunction){
     try {
-        const songs = await songService.getSongs();
-        return res.status(httpStatus.OK).send(songs);
+        const themesWithSongs = await songService.getSongs();
+        return res.status(httpStatus.OK).send(themesWithSongs);
     } catch (error) {
         next(error);
     }

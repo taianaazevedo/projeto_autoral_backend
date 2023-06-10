@@ -5,3 +5,4 @@ export * from "./favoriteRouter";
 export * from "./songRouter";
 export * from "./serieRouter";
 export * from "./movieRouter";
+export * from "./bookRouter";

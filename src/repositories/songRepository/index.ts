@@ -1,14 +1,19 @@
 import { prisma } from "@/config";
-import { PostSong } from "@/protocols";
-import { Song, Theme } from "@prisma/client";
+import { PostSong, ThemeParams } from "@/protocols";
+import { Song } from "@prisma/client";
 
-export async function getSongs(): Promise<(Song & { Theme: Theme })[]> {
+export async function getSongs(): Promise<(Song & ThemeParams)[]> {
   return prisma.song.findMany({
     orderBy: {
       createdAt: "asc",
     },
     include: {
-      Theme: true,
+      Theme: {
+        select: {
+          id: true,
+          title: true,
+        },
+      },
     },
   });
 }
