@@ -34,24 +34,45 @@ export type PostSong = {
   performer: string;
 };
 
-
 export type PostSerie = {
   user_id?: number;
   title: string;
   streaming: string;
   theme_id: number;
-}
+};
 
 export type PostMovie = {
   user_id?: number;
   title: string;
   streaming: string;
   theme_id: number;
-}
+};
 
 export type PostBook = {
   user_id?: number;
   title: string;
   author: string;
   theme_id: number;
-}
+};
+
+export type ThemeReferences = {
+  User: {
+    name: string;
+  };
+  Song: {
+    title: string;
+    performer: string;
+  }[];
+  Serie: {
+    title: string;
+    streaming: string;
+  }[];
+  Movie: {
+    title: string;
+    streaming: string;
+  }[];
+  Book: {
+    title: string;
+    author: string;
+  }[];
+};

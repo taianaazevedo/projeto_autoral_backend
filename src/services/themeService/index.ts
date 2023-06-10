@@ -1,13 +1,19 @@
 import { duplicatedThemeError } from "@/errors";
+import { ThemeReferences } from "@/protocols";
 import themeRepository, { ThemeCreated } from "@/repositories/themeRepository";
 import { Theme } from "@prisma/client";
 
-export async function getTheme(): Promise<Theme[]> {
+export async function getTheme(): Promise<(Theme & {
+  User: {
+      name: string;
+      imgUrl: string;
+  };
+})[]> {
   const theme = await themeRepository.getTheme();
   return theme;
 }
 
-export async function getThemeById(theme_id: number): Promise<Theme> {
+export async function getThemeById(theme_id: number): Promise<Theme & ThemeReferences> {
   const themeById = await themeRepository.getThemeById(theme_id);
   return themeById;
 }

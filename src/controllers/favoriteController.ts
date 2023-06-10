@@ -29,7 +29,7 @@ export async function postFavorite(req: AuthenticatedRequest, res: Response, nex
 
 export async function deleteFavorite(req: AuthenticatedRequest, res: Response, next: NextFunction){
   const id = Number(req.params.id) 
-  if(!id) return res.sendStatus(httpStatus.BAD_REQUEST)
+  if(isNaN(id) || id <= 0) return res.sendStatus(httpStatus.BAD_REQUEST)
   
   try {
     await favoriteService.deleteFavorite(id)
