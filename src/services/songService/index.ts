@@ -1,8 +1,8 @@
-import { PostSong } from "@/protocols";
+import { PostSong, ThemeParams } from "@/protocols";
 import { songRepository } from "@/repositories/songRepository";
-import { Song, Theme } from "@prisma/client";
+import { Song } from "@prisma/client";
 
-export async function getSongs(): Promise<(Song & { Theme: Theme })[]> {
+export async function getSongs(): Promise<(Song & ThemeParams)[]> {
   const songs = await songRepository.getSongs();
   return songs;
 }

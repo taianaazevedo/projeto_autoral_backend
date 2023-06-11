@@ -2,6 +2,7 @@ import { prisma } from "@/config";
 import { PostSong, ThemeParams } from "@/protocols";
 import { Song } from "@prisma/client";
 
+
 export async function getSongs(): Promise<(Song & ThemeParams)[]> {
   return prisma.song.findMany({
     orderBy: {
@@ -17,6 +18,7 @@ export async function getSongs(): Promise<(Song & ThemeParams)[]> {
     },
   });
 }
+
 
 export async function postSong({user_id, theme_id, title, performer}: PostSong): Promise<Song> {
   return prisma.song.create({
