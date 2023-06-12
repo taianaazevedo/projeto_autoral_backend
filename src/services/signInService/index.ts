@@ -12,8 +12,7 @@ export async function signIn(email: string, password: string): Promise<UserCrede
   const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
 
   return {
-    user: user.id,
-    email: user.email,
+    id: user.id,
     name: user.name,
     imgUrl: user.imgUrl,
     token,

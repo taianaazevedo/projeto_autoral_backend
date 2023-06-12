@@ -16,8 +16,7 @@ export type UserSignIn = {
 };
 
 export type UserCredentials = {
-  user: number;
-  email: string;
+  id: number;
   name: string;
   imgUrl: string;
   token: string;
