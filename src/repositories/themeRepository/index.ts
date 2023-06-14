@@ -5,7 +5,7 @@ import { Theme } from "@prisma/client";
 export async function getTheme(): Promise<(Theme & {User: {name: string; imgUrl: string}})[]> {
   return prisma.theme.findMany({
     orderBy: {
-      createdAt: "asc",
+      createdAt: "desc",
     },
     include: {
       User: {
