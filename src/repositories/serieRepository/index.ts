@@ -18,7 +18,7 @@ export async function getSeries(): Promise<(Serie & ThemeParams)[]> {
   });
 }
 
-export async function postSerie({user_id, theme_id, title, streaming}: PostSerie) {
+export async function postSerie({user_id, theme_id, title, streaming}: PostSerie): Promise<Serie> {
   return prisma.serie.create({
     data: {
       user_id,

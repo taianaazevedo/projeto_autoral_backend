@@ -88,9 +88,12 @@ export async function getThemeByName(search: string): Promise<Theme[]> {
 }
 
 export async function findThemeByTitle(title: string): Promise<Theme> {
-  return prisma.theme.findUnique({
+  return prisma.theme.findFirst({
     where: {
-      title,
+      title: {
+        equals: title,
+        mode: "insensitive"
+      }
     },
   });
 }

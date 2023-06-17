@@ -14,13 +14,15 @@ export async function getThemesWithBooks(req: AuthenticatedRequest, res: Respons
 }
 
 export async function postBook(req: AuthenticatedRequest, res: Response, next: NextFunction) {
-  const user_id = req.userId as number;
+  const user_id = req.userId;
+  console.log(user_id)
   const { theme_id, title, author } = req.body as PostBook;
   if (!title || !author || !theme_id) return res.sendStatus(httpStatus.BAD_REQUEST);
   try {
     const postBook = await bookService.postBook({user_id, theme_id, title, author});
     return res.status(httpStatus.CREATED).send(postBook);
   } catch (error) {
+    console.log(error)
     next(error);
   }
 }

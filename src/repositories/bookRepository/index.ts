@@ -18,7 +18,7 @@ export async function getBooks(): Promise<(Book & ThemeParams)[]> {
   });
 }
 
-export async function postBook({ user_id, theme_id, title, author }: PostBook) {
+export async function postBook({ user_id, theme_id, title, author }: PostBook): Promise<Book> {
   return prisma.book.create({
     data: {
       user_id,
