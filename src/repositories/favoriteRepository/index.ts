@@ -4,13 +4,22 @@ import { Favorite, Theme } from "@prisma/client";
 export async function getFavorite(user_id: number): Promise<(Favorite & {Theme: Theme})[]> {
   return prisma.favorite.findMany({
     orderBy:{
-      createdAt: "asc",
+      createdAt: "desc",
     },
     where: {
       user_id,
     },
     include: {
-      Theme: true,
+      Theme: {
+        include: {
+          User: {
+            select: {
+              imgUrl: true,
+              name: true
+            }
+          }
+        }
+      }
     },
   });
 }
@@ -25,7 +34,7 @@ export async function postFavorite(user_id: number, theme_id: number): Promise<F
 }
 
 export async function deleteFavorite(id: number): Promise<void> {
-   prisma.favorite.delete({
+  await prisma.favorite.delete({
     where: {
       id,
     },
