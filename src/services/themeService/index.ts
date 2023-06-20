@@ -31,11 +31,17 @@ export async function findThemeByTitle(title: string): Promise<Theme> {
   return theme;
 }
 
+export async function getThemesFromUser(user_id: number): Promise<Theme[]>{
+  const themes = await themeRepository.getThemesFromUser(user_id);
+  return themes
+}
+
 const themeService = {
   getTheme,
   getThemeById,
   getThemeByName,
   createTheme,
+  getThemesFromUser,
 };
 
 export { themeService };

@@ -35,6 +35,17 @@ export async function getThemeByName(req: AuthenticatedRequest, res: Response, n
   }
 }
 
+export async function getThemesFromUser(req: AuthenticatedRequest, res: Response, next: NextFunction){
+  const user_id = req.userId;
+  try {
+    const themeUser = await themeService.getThemesFromUser(user_id);
+    return res.status(httpStatus.OK).send(themeUser);
+  } catch (error) {
+    console.log(error)
+    next(error);
+  }
+}
+
 export async function createTheme(req: AuthenticatedRequest, res: Response, next: NextFunction) {
   const user_id = req.userId;
   const { title } = req.body;

@@ -98,6 +98,14 @@ export async function findThemeByTitle(title: string): Promise<Theme> {
   });
 }
 
+export async function getThemesFromUser(user_id: number): Promise<Theme[]> {
+  return prisma.theme.findMany({
+    where: {
+      user_id,
+    },
+  });
+}
+
 export type ThemeCreated = Omit<Theme, "id" | "createdAt" | "updatedAt">;
 
 const themeRepository = {
@@ -106,6 +114,7 @@ const themeRepository = {
   getThemeByName,
   findThemeByTitle,
   createTheme,
+  getThemesFromUser
 };
 
 export default themeRepository;
