@@ -1,11 +1,7 @@
-import { PostMovie, ThemeParams } from "@/protocols";
+import { PostMovie } from "@/protocols";
 import { movieRepository } from "@/repositories/movieRepository";
 import { Movie } from "@prisma/client";
 
-export async function getThemeWithMovies(): Promise<(Movie & ThemeParams)[]> {
-  const themes = await movieRepository.getMovies();
-  return themes;
-}
 
 export async function postMovie({user_id, theme_id, title, streaming}: PostMovie): Promise<Movie> {
   const post = await movieRepository.postMovie({
@@ -18,7 +14,6 @@ export async function postMovie({user_id, theme_id, title, streaming}: PostMovie
 }
 
 const movieService = {
-  getThemeWithMovies,
   postMovie,
 };
 

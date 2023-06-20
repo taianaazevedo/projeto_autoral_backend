@@ -4,14 +4,6 @@ import { movieService } from "@/services";
 import { NextFunction, Response } from "express";
 import httpStatus from "http-status";
 
-export async function getThemesWithMovies(req: AuthenticatedRequest, res: Response, next: NextFunction) {
-  try {
-    const themesWithMovies = await movieService.getThemeWithMovies();
-    return res.status(httpStatus.OK).send(themesWithMovies);
-  } catch (error) {
-    next(error);
-  }
-}
 
 export async function postMovie(req: AuthenticatedRequest, res: Response, next: NextFunction) {
   const user_id = req.userId;

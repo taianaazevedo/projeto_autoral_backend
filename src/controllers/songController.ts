@@ -4,14 +4,6 @@ import { songService } from "@/services";
 import { NextFunction, Response } from "express";
 import httpStatus from "http-status";
 
-export async function getThemesWithSongs(req: AuthenticatedRequest, res: Response, next: NextFunction){
-    try {
-        const themesWithSongs = await songService.getSongs();
-        return res.status(httpStatus.OK).send(themesWithSongs);
-    } catch (error) {
-        next(error);
-    }
-}
 
 export async function postSong(req: AuthenticatedRequest, res: Response, next: NextFunction){
     const user_id = req.userId;

@@ -4,14 +4,6 @@ import { serieService } from "@/services";
 import { NextFunction, Response } from "express";
 import httpStatus from "http-status";
 
-export async function getThemesWithSeries(req: AuthenticatedRequest, res: Response, next: NextFunction) {
-  try {
-    const themeWithSeries = await serieService.getSeries();
-    return res.status(httpStatus.OK).send(themeWithSeries);
-  } catch (error) {
-    next(error);
-  }
-}
 
 export async function postSerie(req: AuthenticatedRequest, res: Response, next: NextFunction){
     const user_id = req.userId;

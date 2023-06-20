@@ -1,4 +1,4 @@
-import { getThemesWithMovies, postMovie } from "@/controllers";
+import { postMovie } from "@/controllers";
 import { validate } from "@/middlewares";
 import { authenticateToken } from "@/middlewares/authenticationMiddleware";
 import { movieSchema } from "@/schemas";
@@ -8,7 +8,6 @@ const movieRouter = Router();
 
 movieRouter
   .all("/*", authenticateToken)
-  .get("/", getThemesWithMovies)
   .post("/", validate(movieSchema), postMovie);
 
 export { movieRouter };

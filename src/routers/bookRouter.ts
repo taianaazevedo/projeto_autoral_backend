@@ -1,4 +1,4 @@
-import { getThemesWithBooks, postBook } from "@/controllers";
+import { postBook } from "@/controllers";
 import { validate } from "@/middlewares";
 import { authenticateToken } from "@/middlewares/authenticationMiddleware";
 import { bookSchema } from "@/schemas";
@@ -8,7 +8,6 @@ const bookRouter = Router();
 
 bookRouter
   .all("/*", authenticateToken)
-  .get("/", getThemesWithBooks)
   .post("/", validate(bookSchema), postBook);
 
 export { bookRouter };

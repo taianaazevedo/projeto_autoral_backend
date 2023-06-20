@@ -1,22 +1,7 @@
 import { prisma } from "@/config";
-import { PostBook, ThemeParams } from "@/protocols";
+import { PostBook } from "@/protocols";
 import { Book } from "@prisma/client";
 
-export async function getBooks(): Promise<(Book & ThemeParams)[]> {
-  return prisma.book.findMany({
-    orderBy: {
-      createdAt: "asc",
-    },
-    include: {
-      Theme: {
-        select: {
-          id: true,
-          title: true,
-        },
-      },
-    },
-  });
-}
 
 export async function postBook({ user_id, theme_id, title, author }: PostBook): Promise<Book> {
   return prisma.book.create({
@@ -30,7 +15,6 @@ export async function postBook({ user_id, theme_id, title, author }: PostBook): 
 }
 
 const bookRepository = {
-    getBooks,
     postBook,
 };
 
