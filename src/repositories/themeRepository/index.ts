@@ -100,6 +100,9 @@ export async function findThemeByTitle(title: string): Promise<Theme> {
 
 export async function getThemesFromUser(user_id: number): Promise<Theme[]> {
   return prisma.theme.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
     where: {
       user_id,
     },
