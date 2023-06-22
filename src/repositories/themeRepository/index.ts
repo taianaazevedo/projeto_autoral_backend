@@ -109,6 +109,14 @@ export async function getThemesFromUser(user_id: number): Promise<Theme[]> {
   });
 }
 
+export async function deleteTheme(theme_id: number){
+  await prisma.theme.delete({
+    where: {
+      id: theme_id,
+    },
+  });
+}
+
 export type ThemeCreated = Omit<Theme, "id" | "createdAt" | "updatedAt">;
 
 const themeRepository = {
@@ -117,7 +125,8 @@ const themeRepository = {
   getThemeByName,
   findThemeByTitle,
   createTheme,
-  getThemesFromUser
+  getThemesFromUser,
+  deleteTheme,
 };
 
 export default themeRepository;

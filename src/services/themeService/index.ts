@@ -1,4 +1,4 @@
-import { duplicatedThemeError } from "@/errors";
+import { duplicatedThemeError, notFoundError } from "@/errors";
 import { ThemeReferences } from "@/protocols";
 import themeRepository, { ThemeCreated } from "@/repositories/themeRepository";
 import { Theme } from "@prisma/client";
@@ -10,6 +10,7 @@ export async function getTheme(): Promise<(Theme & {User: {name: string, imgUrl:
 
 export async function getThemeById(theme_id: number): Promise<Theme & ThemeReferences> {
   const themeById = await themeRepository.getThemeById(theme_id);
+  if(!themeById) throw notFoundError();
   return themeById;
 }
 
@@ -36,12 +37,17 @@ export async function getThemesFromUser(user_id: number): Promise<Theme[]>{
   return themes
 }
 
+export async function deleteTheme(theme_id: number): Promise<void>{
+  await themeRepository.deleteTheme(theme_id)
+}
+
 const themeService = {
   getTheme,
   getThemeById,
   getThemeByName,
   createTheme,
   getThemesFromUser,
+  deleteTheme,
 };
 
 export { themeService };

@@ -3,7 +3,8 @@ import {
   getTheme,
   getThemeById,
   getThemeByName,
-  getThemesFromUser,   
+  getThemesFromUser,  
+  deleteTheme, 
 } from "@/controllers";
 import { validate } from "@/middlewares";
 import { authenticateToken } from "@/middlewares/authenticationMiddleware";
@@ -17,6 +18,7 @@ themeRouter
   .get("/allthemes", getTheme)
   .get("/:id", getThemeById)
   .get("/", getThemeByName) 
-  .post("/", validate(themeSchema), createTheme);
+  .post("/", validate(themeSchema), createTheme)
+  .delete("/:id", deleteTheme);
 
 export { themeRouter };

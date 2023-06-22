@@ -58,3 +58,14 @@ export async function createTheme(req: AuthenticatedRequest, res: Response, next
     next(error);
   }
 }
+
+export async function deleteTheme(req: AuthenticatedRequest, res: Response, next: NextFunction){
+  const theme_id = Number(req.params.id);
+  if(isNaN(theme_id) || theme_id <= 0) return res.sendStatus(httpStatus.BAD_REQUEST);
+  try {
+    await themeService.deleteTheme(theme_id)
+    return res.sendStatus(httpStatus.OK)
+  } catch (error) {
+    next(error)
+  }
+}
