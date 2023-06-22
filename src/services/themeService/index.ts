@@ -34,11 +34,16 @@ export async function findThemeByTitle(title: string): Promise<Theme> {
 
 export async function getThemesFromUser(user_id: number): Promise<Theme[]>{
   const themes = await themeRepository.getThemesFromUser(user_id);
-  return themes
+  return themes;
 }
 
 export async function deleteTheme(theme_id: number): Promise<void>{
-  await themeRepository.deleteTheme(theme_id)
+  await themeRepository.deleteTheme(theme_id);
+}
+
+export async function updateTheme(title: string, theme_id: number): Promise<Theme>{
+  const theme = await themeRepository.updateTheme(title, theme_id);
+  return theme;
 }
 
 const themeService = {
@@ -48,6 +53,7 @@ const themeService = {
   createTheme,
   getThemesFromUser,
   deleteTheme,
+  updateTheme,
 };
 
 export { themeService };

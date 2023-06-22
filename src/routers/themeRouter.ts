@@ -4,7 +4,9 @@ import {
   getThemeById,
   getThemeByName,
   getThemesFromUser,  
-  deleteTheme, 
+  deleteTheme,
+  updateTheme,
+
 } from "@/controllers";
 import { validate } from "@/middlewares";
 import { authenticateToken } from "@/middlewares/authenticationMiddleware";
@@ -19,6 +21,7 @@ themeRouter
   .get("/:id", getThemeById)
   .get("/", getThemeByName) 
   .post("/", validate(themeSchema), createTheme)
+  .patch("/:id", validate(themeSchema), updateTheme)
   .delete("/:id", deleteTheme);
 
 export { themeRouter };

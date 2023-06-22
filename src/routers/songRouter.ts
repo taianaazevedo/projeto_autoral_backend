@@ -1,13 +1,14 @@
-import { postSong } from "@/controllers";
+import { postSong, updateSong } from "@/controllers";
 import { validate } from "@/middlewares";
 import { authenticateToken } from "@/middlewares/authenticationMiddleware";
-import { songSchema } from "@/schemas";
+import { songSchema, updateSongSchema } from "@/schemas";
 import { Router } from "express";
 
 const songRouter = Router();
 
 songRouter
   .all("/*", authenticateToken)
-  .post("/", validate(songSchema), postSong);
+  .post("/", validate(songSchema), postSong)
+  .patch("/", validate(updateSongSchema), updateSong);
 
 export { songRouter };

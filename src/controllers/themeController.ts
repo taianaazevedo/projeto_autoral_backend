@@ -1,5 +1,5 @@
 import { AuthenticatedRequest } from "@/middlewares/authenticationMiddleware";
-import { Search } from "@/protocols";
+import { Search, ThemeTitle } from "@/protocols";
 import { themeService } from "@/services";
 import { NextFunction, Response } from "express";
 import httpStatus from "http-status";
@@ -48,7 +48,7 @@ export async function getThemesFromUser(req: AuthenticatedRequest, res: Response
 
 export async function createTheme(req: AuthenticatedRequest, res: Response, next: NextFunction) {
   const user_id = req.userId;
-  const { title } = req.body;
+  const { title } = req.body as ThemeTitle
   if(!title) return res.sendStatus(httpStatus.BAD_REQUEST);
   
   try {
@@ -62,9 +62,23 @@ export async function createTheme(req: AuthenticatedRequest, res: Response, next
 export async function deleteTheme(req: AuthenticatedRequest, res: Response, next: NextFunction){
   const theme_id = Number(req.params.id);
   if(isNaN(theme_id) || theme_id <= 0) return res.sendStatus(httpStatus.BAD_REQUEST);
+
   try {
     await themeService.deleteTheme(theme_id)
     return res.sendStatus(httpStatus.OK)
+  } catch (error) {
+    next(error)
+  }
+}
+
+
+export async function updateTheme(req: AuthenticatedRequest, res: Response, next: NextFunction){
+  const theme_id = Number(req.params.id);
+  const { title } = req.body as ThemeTitle
+  if(isNaN(theme_id) || theme_id <= 0 || !title) return res.sendStatus(httpStatus.BAD_REQUEST);
+  try {
+    const themeUpdated = await themeService.updateTheme(title, theme_id)
+    return res.status(httpStatus.OK).send(themeUpdated)
   } catch (error) {
     next(error)
   }

@@ -17,3 +17,15 @@ export async function postMovie(req: AuthenticatedRequest, res: Response, next: 
     next(error);
   }
 }
+
+export async function updateMovie(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+  const { id, title, streaming } = req.body;
+  if (!title || !streaming || !id) return res.sendStatus(httpStatus.BAD_REQUEST);
+
+  try {
+    const updatedMovie = await movieService.updateMovie(id, title, streaming);
+    return res.status(httpStatus.OK).send(updatedMovie);
+  } catch (error) {
+    next(error);
+  }
+}

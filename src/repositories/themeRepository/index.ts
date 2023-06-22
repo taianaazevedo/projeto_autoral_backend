@@ -40,24 +40,28 @@ export async function getThemeById(theme_id: number): Promise<Theme & ThemeRefer
       },
       Serie: {
         select: {
+          id: true,
           title: true,
           streaming: true,
         },
       },
       Song: {
         select: {
+          id: true,
           title: true,
           performer: true,
         },
       },
       Movie: {
         select: {
+          id: true,
           title: true,
           streaming: true,
         },
       },
       Book: {
         select: {
+          id: true,
           title: true,
           author: true,
         },
@@ -117,6 +121,17 @@ export async function deleteTheme(theme_id: number){
   });
 }
 
+export async function updateTheme(title: string, theme_id: number): Promise<Theme>{
+  return prisma.theme.update({
+    where: {
+      id: theme_id,
+    },
+    data: {
+      title,
+    },
+  });
+}
+
 export type ThemeCreated = Omit<Theme, "id" | "createdAt" | "updatedAt">;
 
 const themeRepository = {
@@ -127,6 +142,7 @@ const themeRepository = {
   createTheme,
   getThemesFromUser,
   deleteTheme,
+  updateTheme,
 };
 
 export default themeRepository;

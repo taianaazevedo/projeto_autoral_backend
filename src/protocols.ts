@@ -26,6 +26,10 @@ export type Search = {
   search: string;
 };
 
+export type ThemeTitle = {
+  title: string;
+};
+
 export type PostSong = {
   user_id?: number;
   theme_id: number;
@@ -59,18 +63,22 @@ export type ThemeReferences = {
     name: string;
   };
   Song: {
+    id: number;
     title: string;
     performer: string;
   }[];
   Serie: {
+    id: number;
     title: string;
     streaming: string;
   }[];
   Movie: {
+    id: number;
     title: string;
     streaming: string;
   }[];
   Book: {
+    id: number;
     title: string;
     author: string;
   }[];

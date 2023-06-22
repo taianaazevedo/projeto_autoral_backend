@@ -17,3 +17,15 @@ export async function postSerie(req: AuthenticatedRequest, res: Response, next: 
         next(error);
     }
 }
+
+export async function updateSerie(req: AuthenticatedRequest, res: Response, next: NextFunction){
+    const { id, title, streaming } = req.body;
+    if(!title || !streaming || !id) return res.sendStatus(httpStatus.BAD_REQUEST);
+    
+    try {
+        const updatedserie = await serieService.updateSerie(id, title, streaming);
+        return res.status(httpStatus.OK).send(updatedserie);
+    } catch (error) {
+        next(error);
+    }
+}

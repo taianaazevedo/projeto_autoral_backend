@@ -16,3 +16,15 @@ export async function postBook(req: AuthenticatedRequest, res: Response, next: N
     next(error);
   }
 }
+
+export async function updateBook(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+  const { id, title, author } = req.body;
+  if (!title || !author || !id) return res.sendStatus(httpStatus.BAD_REQUEST);
+  try {
+    const updatedBook = await bookService.updateBook(id, title, author);
+    return res.status(httpStatus.OK).send(updatedBook);
+  } catch (error) {
+    console.log(error)
+    next(error);
+  }
+}
