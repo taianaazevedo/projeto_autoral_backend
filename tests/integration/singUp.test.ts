@@ -40,7 +40,7 @@ describe("POST /sign-up", () => {
 
     it("should respond with status 409 when there is an user with given email", async () => {
       const body = generateValidBody();
-      await createUser(body.name, body.email, body.password, body.imgUrl);
+      await createUser(body.email, body.password, body.name, body.imgUrl);
 
       const response = await server.post("/sign-up").send(body);
 
