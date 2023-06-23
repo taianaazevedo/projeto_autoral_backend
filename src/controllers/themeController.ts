@@ -27,6 +27,7 @@ export async function getThemeById(req: AuthenticatedRequest, res: Response, nex
 
 export async function getThemeByName(req: AuthenticatedRequest, res: Response, next: NextFunction){
   const { search } = req.query as Search;
+  if(!search) return res.sendStatus(httpStatus.BAD_REQUEST)
   try {
     const theme = await themeService.getThemeByName(search);
     return res.status(httpStatus.OK).send(theme);
