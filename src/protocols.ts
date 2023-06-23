@@ -22,6 +22,13 @@ export type UserCredentials = {
   token: string;
 };
 
+export type UserCreated = {
+  id: number;
+  name: string;
+  email: string;
+  imgUrl: string;
+};
+
 export type Search = {
   search: string;
 };

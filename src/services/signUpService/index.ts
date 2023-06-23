@@ -1,14 +1,16 @@
 import bcrypt from "bcrypt";
 import { duplicatedEmailError } from "@/errors/duplicatedEmailError";
 import { signUpRepository } from "@/repositories/signUpRepository/index";
-import { User } from "@prisma/client";
+import { UserCreated } from "@/protocols";
 
-export async function signUp(name: string, email: string, password: string, imgUrl: string): Promise<User> {
+export async function signUp(name: string, email: string, password: string, imgUrl: string): Promise<UserCreated> {
   await validateEmail(email);
 
   const hashedPassword = await bcrypt.hash(password, 12);
 
-  return await signUpRepository.createUser(name, email, hashedPassword, imgUrl);
+  const userCreated = await signUpRepository.createUser(name, email, hashedPassword, imgUrl);
+
+  return userCreated;
 }
 
 async function validateEmail(email: string) {
