@@ -14,12 +14,12 @@ import { faker } from "@faker-js/faker";
 
 beforeAll(async () => {
   await init();
-  await cleanDb();
 });
 
 beforeEach(async () => {
   await cleanDb();
 });
+
 
 const server = supertest(app);
 
