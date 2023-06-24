@@ -38,10 +38,14 @@ export async function getThemesFromUser(user_id: number): Promise<Theme[]>{
 }
 
 export async function deleteTheme(theme_id: number): Promise<void>{
+  await getThemeById(theme_id)
+  
   await themeRepository.deleteTheme(theme_id);
 }
 
 export async function updateTheme(title: string, theme_id: number): Promise<Theme>{
+  await getThemeById(theme_id)
+  
   const theme = await themeRepository.updateTheme(title, theme_id);
   return theme;
 }
