@@ -26,7 +26,6 @@ export async function updateSong(req: AuthenticatedRequest, res: Response, next:
         const songUpdated = await songService.updateSong(id, title, performer);
         return res.status(httpStatus.OK).send(songUpdated);       
     } catch (error) {
-        console.log(error)
         next(error);
     }
 }
