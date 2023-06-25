@@ -9,7 +9,6 @@ import { faker } from "@faker-js/faker";
 
 beforeAll(async () => {
   await init();
-  await cleanDb();
 });
 
 beforeEach(async () => {
@@ -68,7 +67,7 @@ describe("POST /movie", () => {
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
     });
 
-    it("should respond with status 201 and with theme data", async () => {
+    it("should respond with status 201 and with movie data", async () => {
       const user = await createUser();
       const token = await createToken();
       const theme = await createTheme(user.id);

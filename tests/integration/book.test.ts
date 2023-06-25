@@ -4,7 +4,7 @@ import { createToken, createUser } from "../factories";
 import { cleanDb } from "../helpers";
 import app, { init } from "@/app";
 import { createTheme } from "../factories/themeFactory";
-import { createSong } from "../factories/referencesFactory";
+import { createBook } from "../factories/referencesFactory";
 import { faker } from "@faker-js/faker";
 
 beforeAll(async () => {
@@ -18,9 +18,9 @@ beforeEach(async () => {
 
 const server = supertest(app);
 
-describe("POST /song", () => {
+describe("POST /book", () => {
   it("should respond with status 401 if no token is given", async () => {
-    const response = await server.post("/song");
+    const response = await server.post("/book");
 
     expect(response.status).toBe(httpStatus.UNAUTHORIZED);
   });
@@ -30,24 +30,24 @@ describe("POST /song", () => {
       const user = await createUser();
       const token = await createToken();
       const theme = await createTheme(user.id);
-      const performer = faker.person.firstName();
+      const author = faker.person.fullName();
 
       const response = await server
-        .post("/song")
+        .post("/book")
         .set("Authorization", `Bearer ${token}`)
-        .send({ performer, theme_id: theme.id });
+        .send({ author, theme_id: theme.id });
 
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
     });
 
-    it("should return with status 400 if performer is missing", async () => {
+    it("should return with status 400 if author is missing", async () => {
       const user = await createUser();
       const token = await createToken();
       const theme = await createTheme(user.id);
-      const title = faker.music.songName();
+      const title = faker.lorem.word(3);
 
       const response = await server
-        .post("/song")
+        .post("/book")
         .set("Authorization", `Bearer ${token}`)
         .send({ title, theme_id: theme.id });
 
@@ -56,34 +56,34 @@ describe("POST /song", () => {
 
     it("should return with status 400 if theme_id is missing", async () => {
       const token = await createToken();
-      const title = faker.music.songName();
-      const performer = faker.person.firstName();
+      const title = faker.lorem.word(3);
+      const author = faker.person.fullName();
 
       const response = await server
-        .post("/song")
+        .post("/book")
         .set("Authorization", `Bearer ${token}`)
-        .send({ title, performer });
+        .send({ title, author });
 
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
     });
 
-    it("should respond with status 201 and with song data", async () => {
+    it("should respond with status 201 and with book data", async () => {
       const user = await createUser();
       const token = await createToken();
       const theme = await createTheme(user.id);
-      const title = faker.music.songName();
-      const performer = faker.person.firstName();
+      const title = faker.lorem.word(3);
+      const author = faker.person.fullName();
 
       const response = await server
-        .post("/song")
+        .post("/book")
         .set("Authorization", `Bearer ${token}`)
-        .send({ title, performer, theme_id: theme.id });
+        .send({ title, author, theme_id: theme.id });
 
       expect(response.status).toBe(httpStatus.CREATED);
       expect(response.body).toEqual({
         id: expect.any(Number),
         title: expect.any(String),
-        performer: expect.any(String),
+        author: expect.any(String),
         theme_id: expect.any(Number),
         user_id: expect.any(Number),
         createdAt: response.body.createdAt,
@@ -93,9 +93,9 @@ describe("POST /song", () => {
   });
 });
 
-describe("PATCH /song", () => {
+describe("PATCH /book", () => {
   it("should respond with status 401 if no token is given", async () => {
-    const response = await server.patch("/song");
+    const response = await server.patch("/book");
 
     expect(response.status).toBe(httpStatus.UNAUTHORIZED);
   });
@@ -104,24 +104,24 @@ describe("PATCH /song", () => {
     const user = await createUser();
     const token = await createToken();
     const theme = await createTheme(user.id);
-    const performer = faker.person.firstName();
+    const author = faker.person.fullName();
 
     const response = await server
-      .patch("/song")
+      .patch("/book")
       .set("Authorization", `Bearer ${token}`)
-      .send({ performer, theme_id: theme.id });
+      .send({ author, theme_id: theme.id });
 
     expect(response.status).toBe(httpStatus.BAD_REQUEST);
   });
 
-  it("should return with status 400 if performer is missing", async () => {
+  it("should return with status 400 if author is missing", async () => {
     const user = await createUser();
     const token = await createToken();
     const theme = await createTheme(user.id);
-    const title = faker.music.songName();
+    const title = faker.lorem.word(3);
 
     const response = await server
-      .patch("/song")
+      .patch("/book")
       .set("Authorization", `Bearer ${token}`)
       .send({ title, theme_id: theme.id });
 
@@ -130,13 +130,13 @@ describe("PATCH /song", () => {
 
   it("should return with status 400 if id is missing", async () => {
     const token = await createToken();
-    const title = faker.music.songName();
-    const performer = faker.person.firstName();
+    const title = faker.lorem.word(3);
+    const author = faker.person.fullName();
 
     const response = await server
-      .patch("/song")
+      .patch("/book")
       .set("Authorization", `Bearer ${token}`)
-      .send({ title, performer });
+      .send({ title, author });
 
     expect(response.status).toBe(httpStatus.BAD_REQUEST);
   });
@@ -144,38 +144,38 @@ describe("PATCH /song", () => {
   it("should return status 404 if id is not found", async () => {
     const user = await createUser();
     const token = await createToken();
-    const title = faker.music.songName();
-    const performer = faker.person.firstName();
-    await createTheme(user.id);
-    const idFake = 10;
+    const title = faker.lorem.word(3);
+    const author = faker.person.fullName();
+    const idFake = 5;
+     await createTheme(user.id);
     
-    const response = await server
-      .patch("/song")
-      .set("Authorization", `Bearer ${token}`)
-      .send({ title, performer, id: idFake });
 
+    const response = await server
+      .patch("/book")
+      .set("Authorization", `Bearer ${token}`)
+      .send({ title, author, id: idFake });
 
     expect(response.status).toBe(httpStatus.NOT_FOUND);
   });
 
-  it("should respond with status 201 and with song data", async () => {
+  it("should respond with status 201 and with book data", async () => {
     const user = await createUser();
     const token = await createToken();
     const theme = await createTheme(user.id);
-    const song = await createSong(user.id, theme.id);
-    const title = faker.music.songName();
-    const performer = faker.person.firstName();
+    const book = await createBook(user.id, theme.id);
+    const title = faker.lorem.word(3);
+    const author = faker.person.fullName();
 
     const response = await server
-      .patch("/song")
+      .patch("/book")
       .set("Authorization", `Bearer ${token}`)
-      .send({ title, performer, id: song.id });
+      .send({ title, author, id: book.id });
 
     expect(response.status).toBe(httpStatus.OK);
     expect(response.body).toEqual({
       id: expect.any(Number),
       title: expect.any(String),
-      performer: expect.any(String),
+      author: expect.any(String),
       theme_id: expect.any(Number),
       user_id: expect.any(Number),
       createdAt: response.body.createdAt,

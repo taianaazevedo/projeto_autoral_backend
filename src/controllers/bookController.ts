@@ -24,7 +24,6 @@ export async function updateBook(req: AuthenticatedRequest, res: Response, next:
     const updatedBook = await bookService.updateBook(id, title, author);
     return res.status(httpStatus.OK).send(updatedBook);
   } catch (error) {
-    console.log(error)
     next(error);
   }
 }
