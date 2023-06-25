@@ -31,6 +31,18 @@ describe("GET /theme/allthemes", () => {
   });
 
   describe("when token is valid", () => {
+    it("should respond with status 200 and a empty array when there is no themes", async () => {
+      await createUser();
+      const token = await createToken();
+
+      const response = await server
+        .get("/theme/allthemes")
+        .set("Authorization", `Bearer ${token}`);
+
+      expect(response.status).toBe(httpStatus.OK);
+      expect(response.body).toEqual([]);
+    });
+
     it("should respond with status 200 and with theme data", async () => {
       const user = await createUser();
       const token = await createToken();
@@ -160,6 +172,18 @@ describe("GET /theme?search=", () => {
   });
 
   describe("when token is valid", () => {
+    it("should return with status 200 and a empty array when there is no theme with a given word", async () => {
+      const token = await createToken();
+      const word = faker.lorem.word()
+
+      const response = await server
+        .get(`/theme?search=${word}`)
+        .set("Authorization", `Bearer ${token}`);
+
+      expect(response.status).toBe(httpStatus.OK);
+      expect(response.body).toEqual([]);
+    });
+
     it("should return with status 200 and theme", async () => {
       const user = await createUser();
       const token = await createToken();
@@ -184,6 +208,18 @@ describe("GET /theme/mythemes", () => {
   });
 
   describe("when token is valid", () => {
+    it("should respond with 200 and a empty array when there is no theme", async () => {
+      const token = await createToken();
+    
+      const response = await server
+        .get("/theme/mythemes")
+        .set("Authorization", `Bearer ${token}`);
+
+
+      expect(response.status).toBe(httpStatus.OK);
+      expect(response.body).toEqual([]);
+    });
+
     it("should respond with 200 and themes created by user", async () => {
       const token = await createToken();
       const title = faker.lorem.words(5)
@@ -322,6 +358,20 @@ describe("PATCH /theme/:id", () => {
         .send({});
 
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
+    });
+
+    it("should return with status 409 if theme's title already exist", async () => {
+      const user = await createUser();
+      const token = await createToken();
+      const title = faker.lorem.words(5);
+      const theme = await createTheme(user.id, title);
+
+      const response = await server
+        .patch(`/theme/${theme.id}`)
+        .set("Authorization", `Bearer ${token}`)
+        .send({ title: theme.title });
+
+      expect(response.status).toBe(httpStatus.CONFLICT);
     });
 
     it("should be return status 200 and theme updated", async () => {

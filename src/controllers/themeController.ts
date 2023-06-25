@@ -42,7 +42,6 @@ export async function getThemesFromUser(req: AuthenticatedRequest, res: Response
     const themeUser = await themeService.getThemesFromUser(user_id);
     return res.status(httpStatus.OK).send(themeUser);
   } catch (error) {
-    console.log(error)
     next(error);
   }
 }
