@@ -45,6 +45,7 @@ export async function deleteTheme(theme_id: number): Promise<void>{
 
 export async function updateTheme(title: string, theme_id: number): Promise<Theme>{
   await getThemeById(theme_id)
+  await findThemeByTitle(title)
   
   const theme = await themeRepository.updateTheme(title, theme_id);
   return theme;
