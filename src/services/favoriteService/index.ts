@@ -1,4 +1,4 @@
-import { badRequestError } from "@/errors";
+import { badRequestError, notFoundError } from "@/errors";
 import { favoriteRepository } from "@/repositories/favoriteRepository";
 import { Favorite, Theme } from "@prisma/client";
 
@@ -14,7 +14,7 @@ export async function postFavorite(user_id: number, theme_id: number): Promise<F
 
 export async function deleteFavorite(id: number): Promise<void> {
   const idExist = await getFavoriteById(id);
-  if (!idExist) throw badRequestError();
+  if (!idExist) throw notFoundError();
 
   await favoriteRepository.deleteFavorite(id);
 }
